@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import telebot
 
 API_TOKEN = '202773259:AAFhv-bdqhAyqd1CZ-j9daHIeW-HeY1QqWM'
