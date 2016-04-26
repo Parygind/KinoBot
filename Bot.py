@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 import telebot
-import config
-import os
 from flask import Flask, request
 
 bot = telebot.TeleBot(API_TOKEN)
