@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 import telebot
+import os
 from flask import Flask, request
+
+API_TOKEN = "202773259:AAFhv-bdqhAyqd1CZ-j9daHIeW-HeY1QqWM"
 
 bot = telebot.TeleBot(API_TOKEN)
 app = Flask(__name__)
@@ -25,7 +28,7 @@ def getMessage():
 @app.route("/")
 def webhook():
     bot.remove_webhook()
-    bot.set_webhook(url="https://damp-scrubland-49674.herokuapp.com/Bot")
+    bot.set_webhook(url="https://damp-scrubland-49674.herokuapp.com/Bot.py")
     return "!", 200
 
 port = int(os.environ.get("PORT", 5000))
