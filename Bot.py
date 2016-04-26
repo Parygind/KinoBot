@@ -27,5 +27,5 @@ def webhook():
     bot.set_webhook(url="https://damp-scrubland-49674.herokuapp.com/Bot")
     return "!", 200
 
-port = int(os.environ.get("PORT", 5000))
+port = int(os.environ.get("PORT", 8443))
 app.run(host='0.0.0.0', port=port)
