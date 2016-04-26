@@ -16,10 +16,6 @@ def start(message):
 def send_welcome(message):
     bot.reply_to(message, "TAVOO")
 
-@bot.message_handler(func=lambda message: True)
-def echo_message(message):
-    bot.reply_to(message, message.text)
-
 @app.route("/bot", methods=['POST'])
 def getMessage():
     bot.process_new_messages([telebot.types.Update.de_json(request.stream.read().decode("utf-8")).message])
