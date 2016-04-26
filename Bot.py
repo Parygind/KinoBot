@@ -24,8 +24,8 @@ def getMessage():
 @app.route("/")
 def webhook():
     bot.remove_webhook()
-    bot.set_webhook(url="https://damp-scrubland-49674.herokuapp.com/Bot")
+    bot.set_webhook(url="https://damp-scrubland-49674.herokuapp.com/Bot.py")
     return "!", 200
 
-port = int(os.environ.get("PORT", 8443))
+port = int(os.environ.get("PORT", 5000))
 app.run(host='0.0.0.0', port=port)
