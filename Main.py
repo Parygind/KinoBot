@@ -5,7 +5,7 @@ import logging
 
 API_TOKEN = '202773259:AAFhv-bdqhAyqd1CZ-j9daHIeW-HeY1QqWM'
 
-WEBHOOK_HOST = "https://damp-scrubland-49674.herokuapp.com/Bot"
+WEBHOOK_HOST = "https://damp-scrubland-49674.herokuapp.com/Main"
 WEBHOOK_PORT = 8443  # 443, 80, 88 or 8443 (port need to be 'open')
 WEBHOOK_LISTEN = '0.0.0.0'  # In some VPS you may need to put here the IP addr
 
@@ -45,7 +45,7 @@ def echo_message(message):
 
 bot.remove_webhook()
 
-bot.set_webhook(url="https://damp-scrubland-49674.herokuapp.com/Bot")
+bot.set_webhook(url="https://damp-scrubland-49674.herokuapp.com/Main")
 
 cherrypy.config.update({
     'server.socket_host': WEBHOOK_LISTEN,
