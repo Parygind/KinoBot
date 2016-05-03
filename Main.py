@@ -5,17 +5,11 @@ import logging
 
 API_TOKEN = '202773259:AAFhv-bdqhAyqd1CZ-j9daHIeW-HeY1QqWM'
 
-WEBHOOK_HOST = '<ip/host where the bot is running>'
+WEBHOOK_HOST = "https://damp-scrubland-49674.herokuapp.com/Bot"
 WEBHOOK_PORT = 8443  # 443, 80, 88 or 8443 (port need to be 'open')
 WEBHOOK_LISTEN = '0.0.0.0'  # In some VPS you may need to put here the IP addr
 
-WEBHOOK_SSL_CERT = './webhook_cert.pem'  # Path to the ssl certificate
-WEBHOOK_SSL_PRIV = './webhook_pkey.pem'  # Path to the ssl private key
-
-
-WEBHOOK_URL_BASE = "https://%s:%s" % (WEBHOOK_HOST, WEBHOOK_PORT)
 WEBHOOK_URL_PATH = "/%s/" % (API_TOKEN)
-
 
 logger = telebot.logger
 telebot.logger.setLevel(logging.INFO)
@@ -51,15 +45,12 @@ def echo_message(message):
 
 bot.remove_webhook()
 
-bot.set_webhook(url=WEBHOOK_URL_BASE+WEBHOOK_URL_PATH,
-                certificate=open(WEBHOOK_SSL_CERT, 'r'))
+bot.set_webhook(url="https://damp-scrubland-49674.herokuapp.com/Bot")
 
 cherrypy.config.update({
     'server.socket_host': WEBHOOK_LISTEN,
     'server.socket_port': WEBHOOK_PORT,
     'server.ssl_module': 'builtin',
-    'server.ssl_certificate': WEBHOOK_SSL_CERT,
-    'server.ssl_private_key': WEBHOOK_SSL_PRIV
 })
 
 cherrypy.quickstart(WebhookServer(), WEBHOOK_URL_PATH, {'/': {}})
