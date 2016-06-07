@@ -1,31 +1,34 @@
 # -*- coding: utf-8 -*-
 import telebot
-import os
-from flask import Flask, request
+from Game import *
 
-API_TOKEN = "202773259:AAFhv-bdqhAyqd1CZ-j9daHIeW-HeY1QqWM"
-
-bot = telebot.TeleBot(API_TOKEN)
-app = Flask(__name__)
-
-@bot.message_handler(commands=['start'])
-def start(message):
-    bot.send_message(message.chat.id, 'Привет')
-
-@bot.message_handler(commands=['help'])
+game=Game('http://kvester.ru/game/quest/2164?restart')
+bot = telebot.TeleBot("202773259:AAFhv-bdqhAyqd1CZ-j9daHIeW-HeY1QqWM")
+menu=[]
+@bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
-    bot.reply_to(message, "TAVOO")
+    bot.send_message(message.chat.id, "))))")
+    markup = telebot.types.ReplyKeyboardMarkup()
+    markup.one_time_keyboard = True
+    text = game.getText()
+    menu = game.getMenu()
+    for item in menu:
+        markup.row(item)
+    bot.send_message(message.chat.id, text, reply_markup=markup)
+    game.play = True
 
-@app.route("/bot", methods=['POST'])
-def getMessage():
-    bot.process_new_messages([telebot.types.Update.de_json(request.stream.read().decode("utf-8")).message])
-    return "!", 200
+@bot.message_handler(func=lambda message: True)
+def echo_all(message):
+    if(game.play):
+        if(game.menu.index(message.text)>=0):
+            game.click(game.menu.index(message.text))
+            markup = telebot.types.ReplyKeyboardMarkup()
+            markup.one_time_keyboard = True
+            text = game.getText()
+            menu = game.getMenu()
+            for item in menu:
+                markup.row(item)
+            bot.send_message(message.chat.id, text, reply_markup=markup)
 
-@app.route("/")
-def webhook():
-    bot.remove_webhook()
-    bot.set_webhook(url="https://damp-scrubland-49674.herokuapp.com/Bot")
-    return "!", 200
-
-port = int(os.environ.get('PORT', 5000))
-app.run(host='0.0.0.0', port=port)
+if __name__ == '__main__':
+    bot.polling(none_stop=True)
